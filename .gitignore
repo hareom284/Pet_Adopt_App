@@ -1,0 +1,9 @@
+.parcel-cache/
+node*
+dist/
+.env
+coverage/
+package-lock.json
+.vscode/
+#for mac os
+.DS_Store

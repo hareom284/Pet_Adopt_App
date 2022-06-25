@@ -1,0 +1,35 @@
+{
+  "name": "petsadoptapp",
+  "version": "1.0.0",
+  "description": "This is pets adopt website where you can see pets type food  etc.,",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write \"src/**/*.{jsx,js}\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
+    "dev": "parcel \"src/index.html\""
+  },
+  "keywords": [
+    "react",
+    "javascript"
+  ],
+  "author": "@hareom284",
+  "license": "MIT",
+  "dependencies": {
+    "eslint": "^8.18.0",
+    "eslint-config-prettier": "^8.5.0",
+    "parcel": "^2.6.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "prettier": "^2.7.1",
+    "process": "^0.11.10"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
+}
