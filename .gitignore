@@ -7,3 +7,4 @@ package-lock.json
 .vscode/
 #for mac os
 .DS_Store
+.env
