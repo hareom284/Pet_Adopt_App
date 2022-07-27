@@ -1,6 +1,7 @@
 {
   "name": "petsadoptapp",
   "version": "1.0.0",
+  "type": "module",
   "description": "This is pets adopt website where you can see pets type food  etc.,",
   "main": "index.js",
   "scripts": {
@@ -16,6 +17,7 @@
   "author": "@hareom284",
   "license": "MIT",
   "dependencies": {
+    "@petfinder/petfinder-js": "^1.0.6",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "parcel": "^2.6.2",

@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 const Pet = (props) => {
-    const { name, animal, breed, images, location, id } = props;
-
-    let hero = "http://pets-images.dev-apis.com/pets/none.jpg";
+    const { name, animal, breed, images, city, state, id } = props;
+    // console.log(images[0].small, 'FUKCING')
+    let hero = "./default_image.jpg";
     if (images.length) {
-        hero = images[0];
+        hero = images[0]?.small;
     }
 
     return (
@@ -14,7 +14,7 @@ const Pet = (props) => {
             </div>
             <div className="info">
                 <h1>{name}</h1>
-                <h2>{`${animal} — ${breed} — ${location}`}</h2>
+                <h2>{`${animal} — ${breed} — ${city},${state}`}</h2>
             </div>
         </Link>
     );

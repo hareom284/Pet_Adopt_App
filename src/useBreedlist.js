@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import client from "../api";
 const localCache = {};
 export default function useBreedlist(animal) {
     const [breedlist, setBreedlist] = useState([]);
@@ -14,17 +15,32 @@ export default function useBreedlist(animal) {
             getBreedList()
         }
 
-        async function getBreedList() {
+        function getBreedList() {
             setBreedlist([]);
             setStatus("loaded");
+            client.animal.search({
+                type: animal,
+            })
 
-            const res = await fetch(`http://pets-v2.dev-apis.com/breeds?animal=${animal}`);
+                .then(res => {
+                    // @return animals data from api
+                    const Data = res.data.animals;
 
-            const resjson = await res.json();
-            localCache[animal] = resjson.breeds || [];
-            // console.log(localCache[animal], "local")
-            setBreedlist(localCache[animal]);
-            setStatus("loaded");
+                    // get all breedList in an array
+                    const list = Data.map((index) => {
+                        return index.breeds.primary;
+                    })
+
+                    // remove duplicate data from array
+
+                    const arr = [...new Set(list)];
+
+                    localCache[animal] = arr || []
+                    setBreedlist(localCache[animal]);
+                    setStatus("loaded");
+                })
+
+
         }
     }, [animal]);
     // console.log(breedlist)

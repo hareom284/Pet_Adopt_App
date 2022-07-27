@@ -1,14 +1,18 @@
 import { useEffect, useState, useContext } from "react";
 import Pets from "./Results";
 import useBreedlist from "./useBreedlist";
+import client from "../api";
 import ThemsContext from "./ThemsContext";
-const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
+const ANIMALS = ["bird", "cat", "dog", "rabbit"];
 
 const SearchParams = () => {
-    const [location, updateLocation] = useState("");
     const [animal, updateAnimal] = useState("");
     const [breed, updateBreed] = useState("");
     const [pets, setPets] = useState([]);
+    //@return random between 10 to 100
+    const random = Math.floor(Math.random() * 40) + 14;
+
+    console.log(random)
 
     //custome hook 
     const [breeds] = useBreedlist(animal);
@@ -17,15 +21,20 @@ const SearchParams = () => {
 
     useEffect(() => {
         requestPets();
-    }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     async function requestPets() {
-        const res = await fetch(
-            `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
-        );
-        const json = await res.json();
 
-        setPets(json.pets);
+        client.animal.search(
+            {
+                type: animal,
+                limit: random
+
+
+            })
+            .then((resp) => {
+                setPets(resp.data.animals)
+            })
     }
 
     return (
@@ -35,15 +44,6 @@ const SearchParams = () => {
                     e.preventDefault();
                     requestPets();
                 }}>
-                    <label htmlFor="location">
-                        Location
-                        <input
-                            id="location"
-                            value={location}
-                            placeholder="Location"
-                            onChange={(e) => updateLocation(e.target.value)}
-                        />
-                    </label>
                     <label htmlFor="animal">
                         Animal
                         <select

@@ -4,6 +4,7 @@ import Carosul from "./Carosul";
 import ErrorBoundary from "./ErrorBoundry";
 import ThemsContext from "./ThemsContext";
 import Model from "../Model";
+import client from "../api";
 class Details extends Component {
 
     state =
@@ -13,12 +14,15 @@ class Details extends Component {
         }
     toggleShowModel = () => this.setState({ showModel: !this.state.showModel })
     async componentDidMount() {
-        const res = await fetch(`https://pets-v2.dev-apis.com/pets?id=${this.props.param}`)
-        const resjson = await res.json();
-        this.setState(Object.assign({ loading: false }, resjson.pets[0]))
+        client.animal.show(this.props.param)
+            .then((response) => {
+                console.log(response.data, "Details")
+                //set data from api
+                this.setState(Object.assign({ loading: false }, response.data.animal))
+            })
     }
     render() {
-        const { name, animal, breed, city, state, description, images } = this.state;
+        const { name, type, breeds, contact, description, photos } = this.state;
         if (this.state.loading) {
             return (
                 <h3>Loading  ... </h3>
@@ -27,9 +31,9 @@ class Details extends Component {
         else {
             return (
                 <div className="details">
-                    <Carosul images={images} />
+                    <Carosul images={photos} />
                     <h1>{name}</h1>
-                    <h2>{animal} - {breed} - {city},{state}</h2>
+                    <h2>{type} - {breeds.primary} - {contact.address.city},{contact.address.state}</h2>
                     <p>{description}</p>
                     {
                         this.state.showModel ?
